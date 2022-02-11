@@ -19,6 +19,7 @@ for _ in range(M):
 # print(ans)
 
 # 小課題3(余事象 + BIT)
+# BITは1-index で考える必要があるよ！
 # pattern1: 端点に同じものが含まれる
 pattern1 = 0
 # どの点から何本線が出ているかを数える
