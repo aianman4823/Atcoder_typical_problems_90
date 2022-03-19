@@ -1,5 +1,5 @@
 def segfunc(x, y):
-    return min(x, y)
+    return max(x, y)
 
 
 class LazySegTree_RUQ:
@@ -10,7 +10,6 @@ class LazySegTree_RUQ:
         self.num = 1 << (n - 1).bit_length()
         self.tree = [ide_ele] * 2 * self.num
         self.lazy = [None] * 2 * self.num
-
         for i in range(n):
             self.tree[self.num + i] = init_val[i]
         for i in range(self.num - 1, 0, -1):
@@ -26,14 +25,13 @@ class LazySegTree_RUQ:
                 yield l
             if r <= rm:
                 yield r
-
             r >>= 1
             l >>= 1
         while l:
             yield l
             l >>= 1
 
-    def propagate(self, *ids):
+    def propagates(self, *ids):
         for i in reversed(ids):
             v = self.lazy[i]
             if v is None:
@@ -46,7 +44,7 @@ class LazySegTree_RUQ:
 
     def update(self, l, r, x):
         ids = self.gindex(l, r)
-        self.propagate(*self.gindex(l, r))
+        self.propagates(*self.gindex(l, r))
         l += self.num
         r += self.num
         while l < r:
@@ -57,29 +55,24 @@ class LazySegTree_RUQ:
             if r & 1:
                 self.lazy[r - 1] = x
                 self.tree[r - 1] = x
-
             r >>= 1
             l >>= 1
         for i in ids:
             self.tree[i] = self.segfunc(self.tree[2 * i], self.tree[2 * i + 1])
 
     def query(self, l, r):
-        self.propagate(*self.gindex(l, r))
+        self.propagates(*self.gindex(l, r))
         res = self.ide_ele
         l += self.num
         r += self.num
         while l < r:
-            # 奇数
             if l & 1:
                 res = self.segfunc(res, self.tree[l])
                 l += 1
-            # 奇数
             if r & 1:
                 res = self.segfunc(res, self.tree[r - 1])
-
             l >>= 1
             r >>= 1
-
         return res
 
 
