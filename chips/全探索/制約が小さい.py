@@ -1,6 +1,7 @@
 from collections import defaultdict
 from itertools import permutations
 # 制約が小さいものは全探索
+# 1 <= N <= 10のように制約が小さい場合!!!!
 N = int(input())
 A = []
 for _ in range(N):
