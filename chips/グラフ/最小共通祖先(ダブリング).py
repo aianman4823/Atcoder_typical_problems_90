@@ -43,7 +43,7 @@ id = [0] * N  # DFSで通った順番
 bits = 0  # 全ノードをダブリングで求めるのに2の何乗が必要か
 while (1 << bits) < N:
     bits += 1
-par = [[-1 for _ in range(N)] for __ in range(bits + 1)]  # par[k][i] := ノードiの2^k乗上のノード
+par = [[-1 for _ in range(N)] for _ in range(bits + 1)]  # par[k][i] := ノードiの2^k乗上のノード
 vert_id = 0
 
 
@@ -55,6 +55,7 @@ def build_tree(pos, pre):
     posからDFS順に辿る
     '''
     global vert_id
+    # 2^0==1個上の祖先を記録
     par[0][pos] = pre
     id[pos] = vert_id
     vert_id += 1
@@ -67,7 +68,7 @@ def build_tree(pos, pre):
 
 build_tree(0, 0)
 
-# parの計算
+# parの計算(2^k個うえの祖先を計算)
 for i in range(1, bits):
     for j in range(N):
         par[i][j] = par[i - 1][par[i - 1][j]]
@@ -87,11 +88,13 @@ def lca(va, vb):
     if va == vb:
         return va
 
+    # 共通の祖先が一致しない場合
     # 共通祖先が一致しない高さまで更新
     for i in range(bits - 1, -1, -1):
         if par[i][va] != par[i][vb]:
             va = par[i][va]
             vb = par[i][vb]
+    # その直前を返せば、自然と、最小共通祖先となる
     return par[0][va]
 
 
