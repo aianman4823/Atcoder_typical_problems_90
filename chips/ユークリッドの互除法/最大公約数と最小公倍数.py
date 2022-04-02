@@ -2,6 +2,7 @@ import math
 from functools import reduce
 
 
+# 最大公約数 (greatest common divisor)
 def my_gcd(*numbers):
     return reduce(math.gcd, numbers)
 
@@ -48,5 +49,14 @@ from math import gcd
 
 
 def lcm(m, n):
+    # 最小公倍数(L.C.M. ：leastcommon multiple)
     # lcm (least common multiple)(最小公倍数)
     return m // gcd(m, n) * n
+# ↑
+# ２つの整数の積
+# 2 つの整数 𝑎, 𝑏 の積は
+# 𝑎𝑏 = 𝑔𝑙
+# と表せる。
+# ただし
+# 𝑔 … 最大公約数
+# 𝑙 … 最小公倍数
