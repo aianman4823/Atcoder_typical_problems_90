@@ -1,3 +1,8 @@
+# 数列a1...aNがある
+# 2つの処理を行う
+# aiにxを加算(1 <= i <= N)
+# a1 ~ aiの合計を得る(1 <= i <= N)
+# これをBinary Indexed Treeは高速に行う
 N, M = map(int, input().split())
 lines = []
 for _ in range(M):
