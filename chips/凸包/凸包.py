@@ -11,6 +11,7 @@ points.sort()
 
 # 時計回りかどうかや反時計回りかどうかは、3点の外積をみることで判断可能です
 
+
 def gcd(x, y):
     if x == 0:
         return y
